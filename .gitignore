@@ -58,3 +58,4 @@ __WPF__/
 *.autosave
 pictures/log/*
 
+*.out
