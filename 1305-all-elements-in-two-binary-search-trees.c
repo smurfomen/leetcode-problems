@@ -66,8 +66,8 @@ public:
         if(!node)
             return;
 
-        vec.push_back(node->val);
         plus(node->left, vec);
+        vec.push_back(node->val);
         plus(node->right, vec);
     }
 
