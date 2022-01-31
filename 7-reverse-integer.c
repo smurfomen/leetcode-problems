@@ -32,12 +32,10 @@ class Solution {
 public:
     int reverse(int x) {
         int result = 0;
-        int last = 0;
         int ex = abs(x);
 
         while(ex > 0) {
-            last = ex % 10;
-            long int part = (long int)result * 10 + last;
+            long int part = (long int)result * 10 + (ex % 10);
             if(part > numeric_limits<int>::max())
                 return 0;
 
