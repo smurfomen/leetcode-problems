@@ -26,43 +26,50 @@ using namespace std;
         0 <= nums.length <= 3000
         -10^5 <= nums[i] <= 10^5
 */
-
+#include <set>
 
 class Solution {
 public:
     vector<vector<int>> threeSum(vector<int> nums) {
         int n = nums.size();
 
-        vector<vector<int>> result;
-        if(n < 3)
-            return result;
+        set<vector<int>> result;
+        vector<int> marks(nums.size(), 0);
+        if(n >= 3)
+        {
+            sort(nums.begin(), nums.end());
 
-        sort(nums.begin(), nums.end());
+            for(int i = 0; i < n; ++i) {
+                int lo = i + 1;
 
-        for(int i = 0; i < n; ++i) {
-            int lo = i + 1;
+                int hi = n - 1;
 
-            int hi = n - 1;
+                while(lo < hi) {
+                    int sum = nums[i] + nums[lo] + nums[hi];
 
-            while(lo < hi) {
-                int sum = nums[i] + nums[lo] + nums[hi];
+                    if(sum == 0)
+                    {
+                        vector<int> triplet = {nums[i], nums[lo], nums[hi]};
+                        result.insert(triplet);
 
-                if(sum == 0)
-                {
-                    result.push_back({nums[i], nums[lo], nums[hi]});
-
-                    int clo = nums[lo];
-                    while(lo < hi && nums[lo] == clo) lo++;
+                        int clo = nums[lo];
+                        while(lo < hi && nums[lo] == clo) lo++;
+                    }
+                    else if(sum < 0)
+                        lo++;
+                    else
+                        hi--;
                 }
-                else if(sum < 0)
-                    lo++;
-                else
-                    hi--;
             }
         }
 
+        vector<vector<int>> r;
 
-        return result;
+        for(auto it : result) {
+            r.push_back(it);
+        }
+
+        return r;
     }
 };
 
@@ -96,7 +103,7 @@ int main(int argc, char * argv[]) {
 
     cout << to_str(sol.threeSum({-1,0,1,2,-1,-4})) << endl;
 
-    cout << to_str(sol.threeSum({0,0,0,0})) << endl;
+    cout << to_str(sol.threeSum({0,0,0})) << endl;
 
 
     cout << "tests is passed!" << endl;
