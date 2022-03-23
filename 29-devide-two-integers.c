@@ -89,16 +89,16 @@ public:
 
 int main(int argc, char * argv[]) {
     Solution sol;
-    cout << sol.divide(10, 3) << endl;
-    cout << sol.divide(-1, 1) << endl;
-    cout << sol.divide(1, -1) << endl;
-    cout << sol.divide(10, 5) << endl;
-    cout << sol.divide(0, 5) << endl;
-    cout << sol.divide(7, -3) << endl;
-    cout << sol.divide(-2147483648, 1) << endl;
-    cout << sol.divide(-2147483648, -1) << endl;
-    cout << sol.divide(-2147483648, 2) << endl;
-    cout << sol.divide(-2147483648, 4) << endl;
+    assert(sol.divide(10, 3) == 3);
+    assert(sol.divide(-1, 1) == -1);
+    assert(sol.divide(1, -1) == -1);
+    assert(sol.divide(10, 5) == 2);
+    assert(sol.divide(0, 5) == 0);
+    assert(sol.divide(7, -3) == -2);
+    assert(sol.divide(-2147483648, 1) == -2147483648);
+    assert(sol.divide(-2147483648, -1) == 2147483647);
+    assert(sol.divide(-2147483648, 2) == -1073741824);
+    assert(sol.divide(-2147483648, 4) == -536870912);
 
     cout << "tests is passed!" << endl;
 
