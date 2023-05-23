@@ -32,29 +32,84 @@ using namespace std;
 */
 
 
+/* time O(N) space O(N*2) */
+class Solution_NonOptimized {
+public:
+    string handleBacks(string s) {
+        string res;
+        stack<char> st;
+
+        for(auto ch : s) {
+            if(ch != '#')
+                st.push(ch);
+            else if(!st.empty())
+                st.pop();
+        }
+
+        while(!st.empty()) { res += st.top(); st.pop(); };
+
+        return res;
+    }
+
+
+    bool backspaceCompare(string s, string t) {
+        return handleBacks(s) == handleBacks(t);
+    }
+};
+
+
+
+/* time O(N) space O(1)*/
 class Solution {
 public:
-        string handleBacks(string s) {
-                string res;
-                stack<char> st;
+    int next_idx(const string & s, int i) {
+        int skip = 0;
+        while(i >= 0) {
+            /* if current # - add to skip */
+            if(s[i] == '#')
+                skip++;
 
-                for(auto ch : s) {
-                        if(ch != '#')
-                                st.push(ch);
-                        else if(!st.empty())
-                                st.pop();
-                }
+            /* if valid but skip > 0 - skip symbol*/
+            else if(skip > 0)
+                skip--;
 
-                while(!st.empty()) { res += st.top(); st.pop(); };
+            /* if skip < 1 - break */
+            else
+                break;
 
-                return res;
+            i--;
         }
 
+        return i;
+    }
 
-        bool backspaceCompare(string s, string t) {
-                return handleBacks(s) == handleBacks(t);
+    /* time O(N) space O(1)*/
+    bool backspaceCompare(string s, string t) {
+        int i = s.size() - 1;
+        int j = t.size() - 1;
+
+        /* go from last idx to begin idx */
+        for(;i >= 0 || j >= 0; --i, --j) {
+            i = next_idx(s, i);
+            j = next_idx(t, j);
+
+            /* if i and j < 0 - they begins 0 in one time - strings ended */
+            if(i < 0 && j < 0)
+                return true;
+
+            /* if i or j begins 0  - one of them ends first*/
+            if(i < 0 || j < 0)
+                return false;
+
+            /* if symbols not equial - strings not equials, not reasons to continue */
+            if(s[i] != t[j])
+                return false;
         }
+
+        return true;
+    }
 };
+
 
 
 
