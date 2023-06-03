@@ -43,7 +43,7 @@ public:
       Space Complexity: O(1)
 
     */
-    ListNode* middleNodeNonOptimal(ListNode* head) {
+    ListNode* middleNode_O_1dot5mulN(ListNode* head) {
         int count = 1;
 
         ListNode * tmp = head;
@@ -75,7 +75,7 @@ public:
       Space Complexity: O(1)
 
     */
-    ListNode* middleNode(ListNode* head) {
+    ListNode* middleNode_O_N(ListNode* head) {
         int count = 1;
 
         /* make pair {index node, node} */
@@ -90,12 +90,37 @@ public:
 
             count++;
 
-            /* if middle between 1 and count not equial current index of middle element then update middle index and move middle node forward to next node */
+            /* if middle between count and 1 not equial first then update middle index and move middle node forward to next node */
             if(count / 2 != mid.first)
                 mid = {count / 2, mid.second->next };
         }
 
         return mid.second;
+    }
+
+
+    /*
+
+      Time Complexity: O(n/2)
+
+      Space Complexity: O(1)
+
+    */
+    ListNode* middleNode(ListNode* head) {
+        /* fast can do only two steps per iteration */
+        ListNode * fast = head;
+
+        /* slow can do only one step per iteration */
+        ListNode * slow = head;
+
+        /* go forward to end list while fast is not fast element */
+        while(fast && fast->next) {
+            /* move slow once to next and move fast twice */
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+
+        return slow;
     }
 };
 
