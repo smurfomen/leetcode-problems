@@ -55,7 +55,7 @@ public:
         int j = n-1;
 
         /* we move diagonally from the upper right corner of the matrix, because all rows and all columns are sorted in increasing order,
-         * i.e. the top left element will be most smallest and top right element will be most greater */
+         * i.e. the top left element will be most smallest and bottom right element will be most greater */
         while(j >= 0 && i < m) {
             int& element = matrix[i][j];
             if(element == target)
